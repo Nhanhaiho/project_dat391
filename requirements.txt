@@ -1,0 +1,22 @@
+﻿# Core data + ML
+numpy
+pandas
+scikit-learn
+
+# Deep learning + NLP
+torch
+transformers
+datasets
+accelerate
+sentencepiece
+
+# Visualization
+matplotlib
+seaborn
+
+# App
+streamlit
+
+# Notebook workflow (optional but recommended for local runs)
+jupyter
+ipykernel
