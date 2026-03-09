@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.py[cod]
+
+# Virtual environment
+venv/
+.env
+
+# Notebook
+.ipynb_checkpoints/
+
+# Model weights
+models/
+
+# # Dataset
+# data/raw/
+# data/processed/
+
+# Logs
+*.log
+runs/
+wandb/
+
+# System files
+.DS_Store
+Thumbs.db
+
+# VSCode
+.vscode/
