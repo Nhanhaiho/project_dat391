@@ -201,7 +201,7 @@ The PhoBERT-based classifier demonstrates strong performance for Vietnamese food
 - Include automated tests and CI for training/evaluation scripts
 
 ## 12. Authors
-- **Your Name** - Project implementation, experimentation, and reporting
+- **Nhanhaiho** - Project implementation, experimentation, and reporting
 
 ---
 If you use this project in your work, please cite or reference the repository.
