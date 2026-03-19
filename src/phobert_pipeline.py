@@ -22,26 +22,34 @@ def load_splits(train_path, val_path, test_path):
     val_df = pd.read_csv(val_path)
     test_df = pd.read_csv(test_path)
 
-    train_df = train_df[["Comment", "Rating"]].dropna()
-    val_df = val_df[["Comment", "Rating"]].dropna()
-    test_df = test_df[["Comment", "Rating"]].dropna()
+    # Hỗ trợ cả schema cũ (Comment/Rating) lẫn schema mới (review/label)
+    def _normalize(df):
+        if "Comment" in df.columns and "Rating" in df.columns:
+            df = df[["Comment", "Rating"]].rename(
+                columns={"Comment": "review", "Rating": "label"}
+            )
+        else:
+            df = df[["review", "label"]]
+        df = df.dropna()
+        df["label"] = df["label"].astype(int)
+        return df
 
-    train_df["Rating"] = train_df["Rating"].astype(int)
-    val_df["Rating"] = val_df["Rating"].astype(int)
-    test_df["Rating"] = test_df["Rating"].astype(int)
+    train_df = _normalize(train_df)
+    val_df   = _normalize(val_df)
+    test_df  = _normalize(test_df)
 
     return train_df, val_df, test_df
 
 
 def build_hf_datasets(train_df, val_df, test_df):
     train_ds = Dataset.from_pandas(
-        train_df.rename(columns={"Comment": "text", "Rating": "label"})[["text", "label"]]
+        train_df.rename(columns={"review": "text"})[["text", "label"]]
     )
     val_ds = Dataset.from_pandas(
-        val_df.rename(columns={"Comment": "text", "Rating": "label"})[["text", "label"]]
+        val_df.rename(columns={"review": "text"})[["text", "label"]]
     )
     test_ds = Dataset.from_pandas(
-        test_df.rename(columns={"Comment": "text", "Rating": "label"})[["text", "label"]]
+        test_df.rename(columns={"review": "text"})[["text", "label"]]
     )
     return train_ds, val_ds, test_ds
 
@@ -104,8 +112,8 @@ def build_trainer(train_tok, val_tok, tokenizer, output_dir="models/phobert_bina
         load_best_model_at_end=True,
         metric_for_best_model="macro_f1",
         greater_is_better=True,
-        per_device_train_batch_size=4,
-        per_device_eval_batch_size=4,
+        per_device_train_batch_size=32,
+        per_device_eval_batch_size=64,
         gradient_accumulation_steps=2,
         fp16=True,
         num_train_epochs=3,
@@ -132,7 +140,7 @@ def build_trainer(train_tok, val_tok, tokenizer, output_dir="models/phobert_bina
 def evaluate_on_test(trainer, test_tok, test_df, figure_path=None):
     preds_output = trainer.predict(test_tok)
     logits = preds_output.predictions
-    y_true = test_df["Rating"].to_numpy()
+    y_true = test_df["label"].to_numpy()
     y_pred = np.argmax(logits, axis=-1)
 
     precision, recall, f1, _ = precision_recall_fscore_support(

@@ -14,8 +14,8 @@ model = AutoModelForSequenceClassification.from_pretrained(model_path)
 model.eval()
 
 # load test data
-df = pd.read_csv("data/processed/test_split_from_train.csv")
-
+# df = pd.read_csv("data/processed/test_split_from_train.csv")
+df = pd.read_csv("data/processed/val_split.csv")
 texts = df["Comment"].tolist()
 labels = df["Rating"].tolist()
 
@@ -54,5 +54,5 @@ plt.xlabel("Predicted")
 plt.ylabel("Actual")
 plt.title("Confusion Matrix")
 
-plt.savefig("reports/confusion_matrix_test.png")
+plt.savefig("reports/confusion_matrix_val.png")
 plt.show()
