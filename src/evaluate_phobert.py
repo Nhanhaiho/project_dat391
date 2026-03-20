@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 # load model
-model_path = "models/phobert_binary_best"
+model_path = "models/phobert_binary_best_2"
 
 tokenizer = AutoTokenizer.from_pretrained(model_path)
 model = AutoModelForSequenceClassification.from_pretrained(model_path)
@@ -54,5 +54,5 @@ plt.xlabel("Predicted")
 plt.ylabel("Actual")
 plt.title("Confusion Matrix")
 
-plt.savefig("reports/confusion_matrix_val.png")
+plt.savefig("reports/confusion_matrix_val_after_new_data.png")
 plt.show()

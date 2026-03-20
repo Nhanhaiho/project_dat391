@@ -8,13 +8,13 @@ st.set_page_config(
 )
 
 st.title("🇻🇳 Vietnamese Sentiment Analysis")
-st.write("Nhập review đồ ăn để AI dự đoán cảm xúc.")
+st.write("Nhập comment để AI dự đoán cảm xúc.")
 
 if "history" not in st.session_state:
     st.session_state.history = []
 
 # input
-text = st.text_area("Nhập review ", height=150)
+text = st.text_area("Nhập comment ", height=150)
 
 # buttons
 col1, col2 = st.columns(2)
@@ -32,7 +32,7 @@ if reset_button:
 # predict
 if predict_button:
     if text.strip() == "":
-        st.warning("Vui lòng nhập review")
+        st.warning("Vui lòng nhập comment")
     else:
         label, confidence = predict_sentiment(text)
 

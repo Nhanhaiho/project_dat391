@@ -78,26 +78,41 @@ High-level flow:
 DAT391/
 |
 |-- data/
+|   |-- more_data/
+|   |   `-- process_data.ipynb
+|   |
 |   |-- processed/
+|   |   |-- class_weights.pt
 |   |   |-- train_split.csv
 |   |   |-- val_split.csv
 |   |   `-- test_split_from_train.csv
 |   |
 |   `-- raw/
+|       |-- aivivn_train.csv
+|       |-- aivivn_test.csv
+|       |-- vsa_general_sentiment_full.csv
 |       |-- vsa_food_rv_train.csv
 |       |-- vsa_food_rv_test.csv
 |       `-- vietnamese-stopwords-dash.txt
 |
 |-- models/
-|   `-- phobert_binary_best/
+|   `-- ...
 |
 |-- notebooks/
 |   |-- 01_data_understanding_preprocessing_and_eda.ipynb
 |   |-- 02_baseline_models.ipynb
-|   `-- 03_phobert_training.ipynb
+|   |-- 03_phobert_training.ipynb
+|   |-- merge_data_augmentation.ipynb
+|   |-- new_baseline_models.ipynb
+|   |-- new_data_understanding_preprocessing_and_eda.ipynb
+|   `-- new_phobert_training_colab.ipynb
 |
 |-- reports/
+|   |-- confusion_matrix_test_augmented.png
 |   |-- confusion_matrix_test.png
+|   |-- confusion_matrix_val_augmented.png
+|   |-- confusion_matrix_val.png
+|   |-- train_phobert_data_aug.jpg
 |   `-- train_phobert.jpeg
 |
 |-- src/
@@ -105,12 +120,15 @@ DAT391/
 |   |-- data_loader.py
 |   |-- eda.py
 |   |-- evaluate_phobert.py
+|   |-- new_evaluate_phobert.py
 |   |-- phobert_pipeline.py
+|   |-- phobert_pipeline2.py
 |   |-- predict.py
 |   `-- preprocessing.py
 |
 |-- app.py
 |-- .gitignore
+|-- requirements.txt
 `-- README.md
 ```
 
